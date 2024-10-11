@@ -7,30 +7,43 @@ class Database:
             sql = """
             CREATE TABLE IF NOT EXISTS ew (
                 id INTEGER PRIMARY KEY,
-                task TEXT NOT NULL
+                task TEXT NOT NULL,
+                subject TEXT NOT NULL,
+                beak TEXT NOT NULL,
+                dueDate DATE NOT NULL
             );
             """
             cursor.execute(sql)
 
             sql_insert = """
-            INSERT INTO ew (task) VALUES (?);
+            INSERT INTO ew (task, subject, beak, dueDate) VALUES (?, ?, ?, ?);
             """
-            cursor.execute(sql_insert, ('Complete Flask web dev',))
+            cursor.execute(sql_insert, ('Stupid long ew', 'Computer Science', 'MC', '2024-10-09'))
             db.commit()
 
 
     def get_ews(self):
-        """
-        TO IMPLEMENT
-        """
-        pass
+        with sqlite3.connect('database.db') as db:
+            cursor = db.cursor()
+            sql = """
+            SELECT id, task, subject, beak, dueDate FROM ew
+            """
+            cursor.execute(sql)
+            
+            return cursor.fetchall()
 
-    def create_ew(self, task):
-        """
-        TO IMPLEMENT
-        """
-        pass
+    def create_ew(self, task, subject, beak, dueDate):
 
+        with sqlite3.connect('database.db') as db:
+            cursor = db.cursor()
+            sql = """
+            INSERT INTO ew (task, subject, beak, dueDate)
+            VALUES (?, ?, ?, ?)
+            """
+            cursor.execute(sql, (task, subject, beak, dueDate))
+            db.commit()
+
+        
 
 
     # EXTRA CREDIT

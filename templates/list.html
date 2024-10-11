@@ -8,10 +8,23 @@
         <title>My EWs</title>
     </head>
 
-    <body class='container col-6'>
+    <body>
+
         <div class='p-4'>
             <h2>Add EW</h2>
-            <div>TODO: Build your form here</div>
+            <div class="table-responsive">
+                <form action="/add" method="POST">
+                    <label for="task">Task:</label><br>
+                    <input type="text" id="task" name="task" required><br>
+                    <label for="subject">Subject:</label><br>
+                    <input id="subject" id="subject" name="subject"><br>
+                    <label for="beak">Beak:</label><br>
+                    <input type="text" id="beak" name="beak"><br>
+                    <label for="dueDate">Due Date:</label><br>
+                    <input type="date" id="dueDate" name="dueDate"><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
         </div>
 
         <div class='p-4'>
@@ -19,7 +32,32 @@
             {% if ews|length == 0 %}
                 <div>No EWs set yet</div>
             {% else %}
-                <div>TODO: View your EWs here</div>
+            <div class = "container mt-4">
+                <div class = "table-responsive"> 
+                    <table class="table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Task</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Beak</th>
+                                <th scope="col">Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ew in ews %}
+                            <tr>
+                                <td>{{ew[0]}}</td>
+                                <td>{{ew[1]}}</td>
+                                <td>{{ew[2]}}</td>
+                                <td>{{ew[3]}}</td>
+                                <td>{{ew[4]}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             {% endif %}
         </div>
     </body>
